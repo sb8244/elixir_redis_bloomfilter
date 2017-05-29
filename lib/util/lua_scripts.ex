@@ -1,4 +1,8 @@
 defmodule RedisBloomfilter.Util.LuaScripts do
+  @moduledoc """
+  LUA scripts taken verbatim from https://github.com/erikdubbelboer/redis-lua-scaling-bloom-filter, minus the new
+  lines at the beginning. The SHA is hardcoded to limit errors in calling the wrong script.
+  """
   def add_script_sha, do: "972697f22fb62b3579210b2c73a0c1eff582b7c1"
   def check_script_sha, do: "1b69ae9a31e23aa614977f5bfd16683628a15847"
 
