@@ -1,12 +1,15 @@
-defmodule ElixirRedisBloomfilter do
+defmodule RedisBloomfilter do
   @moduledoc """
-  Documentation for ElixirRedisBloomfilter.
+  RedisBloomfilter is the only entry point that is necessary for public consumption.
   """
+
+  alias RedisBloomfilter.Driver.RedixDriver
 
   @doc """
   Inserts the given key into the bloom filter.
   """
   def insert(key) do
+    RedixDriver.insert(key)
   end
 
   @doc """
@@ -14,11 +17,13 @@ defmodule ElixirRedisBloomfilter do
   should never return a false negative.
   """
   def include?(key) do
+    RedixDriver.include?(key)
   end
 
   @doc """
   Clears out the bloom filter.
   """
   def clear do
+    RedixDriver.clear()
   end
 end
