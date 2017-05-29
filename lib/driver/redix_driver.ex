@@ -1,5 +1,7 @@
 defmodule RedisBloomfilter.Driver.RedixDriver do
   @moduledoc """
+  Private module
+
   Interfaces with redis through Redix. Utilizes LUA scripts to do all of the bloom filter implementation.
   """
 

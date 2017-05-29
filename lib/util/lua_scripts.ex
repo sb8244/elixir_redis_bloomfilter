@@ -1,5 +1,7 @@
 defmodule RedisBloomfilter.Util.LuaScripts do
   @moduledoc """
+  Private module
+
   LUA scripts taken verbatim from https://github.com/erikdubbelboer/redis-lua-scaling-bloom-filter, minus the new
   lines at the beginning. The SHA is hardcoded to limit errors in calling the wrong script.
   """
