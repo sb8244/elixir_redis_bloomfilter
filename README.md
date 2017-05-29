@@ -10,7 +10,7 @@ and start its application:
 
 ```elixir
   def deps do
-    [{:redis_bloomfilter, "~> 0.1.0"}]
+    [{:redis_bloomfilter, "~> 0.1.2"}]
   end
 ```
 
