@@ -20,6 +20,7 @@ defmodule RedisBloomfilter.Mixfile do
 
   defp deps do
     [
+      {:ex_doc, ">= 0.0.0", only: :dev},
       {:redix, ">= 0.0.0", only: :test},
       {:mock, "~> 0.2.0", only: :test},
     ]
