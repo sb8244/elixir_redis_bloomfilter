@@ -26,33 +26,33 @@ defmodule RedisBloomfilter.Driver.RedixDriverTest do
 
   describe "insert/2" do
     test "returns {:ok, key}" do
-      assert RedixDriver.insert("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == {:ok, "key"}
+      assert RedixDriver.insert("key", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == {:ok, "key"}
     end
   end
 
   describe "include?/2" do
     test "returns false for a key not in the set" do
-      assert RedixDriver.include?("never, nope", key_name: "rbf-d-test", size: 100, precision: 0.01) == false
+      assert RedixDriver.include?("never, nope", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == false
     end
 
     test "it returns false for a bunch of keys not in the set" do
       Enum.each(1..100, fn(i) ->
-        assert RedixDriver.include?("never, nope #{i}", key_name: "rbf-d-test", size: 100, precision: 0.01) == false
+        assert RedixDriver.include?("never, nope #{i}", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == false
       end)
     end
 
     test "it returns true (hopefully) for a key in the set" do
-      assert RedixDriver.insert("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == {:ok, "key"}
-      assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == true
+      assert RedixDriver.insert("key", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == {:ok, "key"}
+      assert RedixDriver.include?("key", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == true
     end
   end
 
   describe "clear/1" do
     test "the key is cleared out" do
-      assert RedixDriver.insert("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == {:ok, "key"}
-      assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == true
-      assert RedixDriver.clear(key_name: "rbf-d-test") == {:ok, 2}
-      assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == false
+      assert RedixDriver.insert("key", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == {:ok, "key"}
+      assert RedixDriver.include?("key", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == true
+      assert RedixDriver.clear(%{key_name: "rbf-d-test"}) == {:ok, 2}
+      assert RedixDriver.include?("key", %{key_name: "rbf-d-test", size: 100, precision: 0.01}) == false
     end
   end
 end

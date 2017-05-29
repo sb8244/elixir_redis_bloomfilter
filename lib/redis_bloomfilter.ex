@@ -29,7 +29,7 @@ defmodule RedisBloomfilter do
   of the keyspace.
   """
   def clear(opts \\ []) do
-    options = options_for(opts) |> Keyword.take([:key_name])
+    options = options_for(opts) |> Map.take([:key_name])
     RedixDriver.clear(options)
   end
 
@@ -41,7 +41,7 @@ defmodule RedisBloomfilter do
   end
 
   defp options_for(opts) do
-    @default_options |> Keyword.merge(get_application_options()) |> Keyword.merge(opts)
+    @default_options |> Keyword.merge(get_application_options()) |> Keyword.merge(opts) |> Enum.into(%{})
   end
 
   defp get_application_options do
