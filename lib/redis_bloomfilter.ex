@@ -11,7 +11,7 @@ defmodule RedisBloomfilter do
   Inserts the given key into the bloom filter.
   """
   def insert(key, opts \\ []) do
-    options = @default_options |> Keyword.merge(opts)
+    options = @default_options |> Keyword.merge(get_application_options()) |> Keyword.merge(opts)
     RedixDriver.insert(key, options)
   end
 
@@ -20,7 +20,7 @@ defmodule RedisBloomfilter do
   should never return a false negative.
   """
   def include?(key, opts \\ []) do
-    options = @default_options |> Keyword.merge(opts)
+    options = @default_options |> Keyword.merge(get_application_options()) |> Keyword.merge(opts)
     RedixDriver.include?(key, options)
   end
 
@@ -29,7 +29,11 @@ defmodule RedisBloomfilter do
   of the keyspace.
   """
   def clear(opts \\ []) do
-    options = @default_options |> Keyword.take([:key_name]) |> Keyword.merge(opts)
+    options = @default_options |> Keyword.merge(get_application_options()) |> Keyword.merge(opts) |> Keyword.take([:key_name])
     RedixDriver.clear(options)
+  end
+
+  defp get_application_options do
+    Application.get_env(RedisBloomfilter, :filter_options, []) || []
   end
 end

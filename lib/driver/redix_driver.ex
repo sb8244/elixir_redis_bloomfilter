@@ -47,7 +47,7 @@ defmodule RedisBloomfilter.Driver.RedixDriver do
   end
 
   defp get_redis_pid() do
-    Application.get_env(:redis_bloomfilter, :pid_fn, &default_pid_fn/0).()
+    Application.get_env(RedisBloomfilter, :pid_fn, &default_pid_fn/0).()
   end
 
   defp default_pid_fn(), do: :redix
