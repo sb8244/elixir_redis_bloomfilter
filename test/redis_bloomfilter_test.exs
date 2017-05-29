@@ -140,4 +140,15 @@ defmodule RedisBloomfilterTest do
       end
     end
   end
+
+  describe "integration" do
+    test "everything works as expected" do
+      {:ok, _redix_pid} = Redix.start_link("redis://localhost:6379", name: :redix)
+      assert Map.keys(RedisBloomfilter.initialize()) == [:add_sha, :check_sha]
+      assert RedisBloomfilter.include?("key", key_name: "integration") == false
+      assert RedisBloomfilter.insert("key", key_name: "integration") == {:ok, "key"}
+      assert RedisBloomfilter.include?("key", key_name: "integration") == true
+      assert RedisBloomfilter.clear(key_name: "integration") == {:ok, 2}
+    end
+  end
 end
