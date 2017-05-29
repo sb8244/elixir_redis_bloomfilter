@@ -9,9 +9,9 @@ Add `redis_bloomfilter` to your list of dependencies in `mix.exs`,
 and start its application:
 
 ```elixir
-    def deps do
-      [{:redis_bloomfilter, "~> 0.1.0"}]
-    end
+  def deps do
+    [{:redis_bloomfilter, "~> 0.1.0"}]
+  end
 ```
 
 Note that the latest hex version may be higher than what is listed here. You can
@@ -22,7 +22,7 @@ the version or alternatively you can use a looser version constraint like `"~> 1
 
 Assuming that RedisBloomfilter is setup (see below), the usage is a breeze!
 
-```
+```elixir
 iex(2)> RedisBloomfilter.include?("My String")
 false
 iex(3)> RedisBloomfilter.insert("My String")
@@ -81,7 +81,7 @@ called Redix that responds to the Redix.command interface, and the easiest way t
 library does not need OTP setup, the PID of your Redix process is done via a name. This name defaults to `:redix` but is
 customizable via the `pid_fn` Application env option `pid_fn`:
 
-```
+```elixir
 config RedisBloomfilter,
   pid_fn: fn() ->
       id = rem(System.unique_integer([:positive]), 5)
