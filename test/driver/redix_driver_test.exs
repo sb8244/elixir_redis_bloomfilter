@@ -41,7 +41,7 @@ defmodule RedisBloomfilter.Driver.RedixDriverTest do
       end)
     end
 
-    test "it returns true for a key in the set" do
+    test "it returns true (hopefully) for a key in the set" do
       assert RedixDriver.insert("key") == {:ok, "key"}
       assert RedixDriver.include?("key") == true
     end
