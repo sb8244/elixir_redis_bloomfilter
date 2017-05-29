@@ -24,26 +24,26 @@ defmodule RedisBloomfilter.Driver.RedixDriverTest do
     end
   end
 
-  describe "insert/1" do
+  describe "insert/2" do
     test "returns {:ok, key}" do
-      assert RedixDriver.insert("key") == {:ok, "key"}
+      assert RedixDriver.insert("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == {:ok, "key"}
     end
   end
 
-  describe "include?/1" do
+  describe "include?/2" do
     test "returns false for a key not in the set" do
-      assert RedixDriver.include?("never, nope") == false
+      assert RedixDriver.include?("never, nope", key_name: "rbf-d-test", size: 100, precision: 0.01) == false
     end
 
     test "it returns false for a bunch of keys not in the set" do
       Enum.each(1..100, fn(i) ->
-        assert RedixDriver.include?("never, nope #{i}") == false
+        assert RedixDriver.include?("never, nope #{i}", key_name: "rbf-d-test", size: 100, precision: 0.01) == false
       end)
     end
 
     test "it returns true (hopefully) for a key in the set" do
-      assert RedixDriver.insert("key") == {:ok, "key"}
-      assert RedixDriver.include?("key") == true
+      assert RedixDriver.insert("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == {:ok, "key"}
+      assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == true
     end
   end
 end

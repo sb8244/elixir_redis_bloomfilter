@@ -5,19 +5,15 @@ defmodule RedisBloomfilter.Driver.RedixDriver do
 
   alias RedisBloomfilter.Util.LuaScripts
 
-  @count_prefix 0
-  @entries 1000000
-  @precision 0.01
-
-  def insert(key) do
-    Redix.command(get_redis_pid(), ["EVALSHA", LuaScripts.add_script_sha(), 0, @count_prefix, @entries, @precision, key])
+  def insert(key, key_name: key_name, size: size, precision: precision) do
+    Redix.command(get_redis_pid(), ["EVALSHA", LuaScripts.add_script_sha(), 0, key_name, size, precision, key])
       |> case do
         {:ok, _} -> {:ok, key}
       end
   end
 
-  def include?(key) do
-    Redix.command(get_redis_pid(), ["EVALSHA", LuaScripts.check_script_sha(), 0, @count_prefix, @entries, @precision, key])
+  def include?(key, key_name: key_name, size: size, precision: precision) do
+    Redix.command(get_redis_pid(), ["EVALSHA", LuaScripts.check_script_sha(), 0, key_name, size, precision, key])
       |> case do
         {:ok, 0} -> false
         {:ok, 1} -> true
