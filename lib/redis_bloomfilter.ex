@@ -25,7 +25,8 @@ defmodule RedisBloomfilter do
   end
 
   @doc """
-  Clears out the bloom filter.
+  Clears out the bloom filter. This operation should be called cautiously, as there is no recovery
+  of the keyspace.
   """
   def clear(opts \\ []) do
     options = @default_options |> Keyword.take([:key_name]) |> Keyword.merge(opts)
