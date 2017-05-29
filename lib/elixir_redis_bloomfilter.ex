@@ -4,15 +4,21 @@ defmodule ElixirRedisBloomfilter do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> ElixirRedisBloomfilter.hello
-      :world
-
+  Inserts the given key into the bloom filter.
   """
-  def hello do
-    :world
+  def insert(key) do
+  end
+
+  @doc """
+  Checks whether the given key is part of the set. This method may return false positives, but
+  should never return a false negative.
+  """
+  def include?(key) do
+  end
+
+  @doc """
+  Clears out the bloom filter.
+  """
+  def clear do
   end
 end
