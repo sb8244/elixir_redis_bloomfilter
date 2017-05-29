@@ -1,6 +1,6 @@
 # Elixir Redis Bloomfilter
 
-A distributed bloom filter implementation based on Redis. Uses [Erik Dubbelboer's] (https://github.com/erikdubbelboer)
+A distributed bloom filter implementation based on Redis. Uses [Erik Dubbelboer's](https://github.com/erikdubbelboer)
 [LUA Redis scripts](https://github.com/ErikDubbelboer/redis-lua-scaling-bloom-filter) for the bloom filter implementation.
 
 ## Installation
