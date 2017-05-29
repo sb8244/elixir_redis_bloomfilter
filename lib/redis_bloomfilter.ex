@@ -33,6 +33,13 @@ defmodule RedisBloomfilter do
     RedixDriver.clear(options)
   end
 
+  @doc """
+  Adds the LUA scripts to Redis. This is idempotent and can be called safely any number of times.
+  """
+  def initialize() do
+    RedixDriver.load_lua_scripts()
+  end
+
   defp options_for(opts) do
     @default_options |> Keyword.merge(get_application_options()) |> Keyword.merge(opts)
   end

@@ -131,4 +131,13 @@ defmodule RedisBloomfilterTest do
       Application.put_env(RedisBloomfilter, :filter_options, original)
     end
   end
+
+  describe "initialize/0" do
+    test "LUA scripts are loaded" do
+      with_mock RedisBloomfilter.Driver.RedixDriver, [load_lua_scripts: fn() -> :ok end] do
+        assert RedisBloomfilter.initialize() == :ok
+        assert called(RedisBloomfilter.Driver.RedixDriver.load_lua_scripts())
+      end
+    end
+  end
 end

@@ -23,6 +23,9 @@ the version or alternatively you can use a looser version constraint like `"~> 1
 Assuming that RedisBloomfilter is setup (see below), the usage is a breeze!
 
 ```elixir
+iex(1)> RedisBloomfilter.initialize()
+%{add_sha: "972697f22fb62b3579210b2c73a0c1eff582b7c1",
+  check_sha: "1b69ae9a31e23aa614977f5bfd16683628a15847"}
 iex(2)> RedisBloomfilter.include?("My String")
 false
 iex(3)> RedisBloomfilter.insert("My String")
@@ -45,7 +48,9 @@ iex(11)> RedisBloomfilter.include?("My String")
 false
 ```
 
-The three public methods are `include?`, `insert`, and `clear`. `clear` is destructive and should be used with care.
+The three public methods are `initialize`, `include?`, `insert`, and `clear`. `clear` is destructive and should be used with care.
+`initialize` should be called when your application boots in order to load the LUA scripts. However, you can also run this manually
+on your Redis instance, which is why it is not required anywhere by this library.
 
 ## Dependencies
 
