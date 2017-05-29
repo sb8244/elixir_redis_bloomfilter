@@ -18,6 +18,35 @@ Note that the latest hex version may be higher than what is listed here. You can
 find the latest version on [hex](https://hex.pm/packages/redis_bloomfilter). You should match
 the version or alternatively you can use a looser version constraint like `"~> 1.0"`.
 
+## Usage
+
+Assuming that RedisBloomfilter is setup (see below), the usage is a breeze!
+
+```
+iex(2)> RedisBloomfilter.include?("My String")
+false
+iex(3)> RedisBloomfilter.insert("My String")
+{:ok, "My String"}
+iex(4)> RedisBloomfilter.include?("My String")
+true
+
+iex(5)> RedisBloomfilter.include?("My String 2")
+false
+iex(7)> RedisBloomfilter.insert("My String 2")
+{:ok, "My String 2"}
+iex(8)> RedisBloomfilter.include?("My String 2")
+true
+
+iex(9)> RedisBloomfilter.include?("My String 3")
+false
+iex(10)> RedisBloomfilter.clear
+{:ok, 2}
+iex(11)> RedisBloomfilter.include?("My String")
+false
+```
+
+The three public methods are `include?`, `insert`, and `clear`. `clear` is destructive and should be used with care.
+
 ## Dependencies
 
 * Redix - Requires that you have setup [Redix](https://hexdocs.pm/redix/real-world-usage.html) on your own and can provide
