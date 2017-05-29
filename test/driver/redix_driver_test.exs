@@ -46,4 +46,13 @@ defmodule RedisBloomfilter.Driver.RedixDriverTest do
       assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == true
     end
   end
+
+  describe "clear/1" do
+    test "the key is cleared out" do
+      assert RedixDriver.insert("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == {:ok, "key"}
+      assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == true
+      assert RedixDriver.clear(key_name: "rbf-d-test") == {:ok, 2}
+      assert RedixDriver.include?("key", key_name: "rbf-d-test", size: 100, precision: 0.01) == false
+    end
+  end
 end

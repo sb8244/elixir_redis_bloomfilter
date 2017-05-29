@@ -9,6 +9,7 @@ defmodule RedisBloomfilter.Driver.RedixDriver do
     Redix.command(get_redis_pid(), ["EVALSHA", LuaScripts.add_script_sha(), 0, key_name, size, precision, key])
       |> case do
         {:ok, _} -> {:ok, key}
+        ret -> ret
       end
   end
 
@@ -17,6 +18,16 @@ defmodule RedisBloomfilter.Driver.RedixDriver do
       |> case do
         {:ok, 0} -> false
         {:ok, 1} -> true
+        ret -> ret
+      end
+  end
+
+  def clear(key_name: key_name) do
+    Redix.command(get_redis_pid(), ["KEYS", "#{key_name}:*"])
+      |> case do
+        {:ok, keys} ->
+          Redix.command(get_redis_pid(), ["DEL" | keys])
+        ret -> ret
       end
   end
 

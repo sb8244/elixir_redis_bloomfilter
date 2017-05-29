@@ -62,4 +62,13 @@ defmodule RedisBloomfilterTest do
       end
     end
   end
+
+  describe "clear/1" do
+    test "calls RedixDriver with default key" do
+      with_mock RedisBloomfilter.Driver.RedixDriver, [clear: fn(_) -> {:ok, 2} end] do
+        assert RedisBloomfilter.clear() == {:ok, 2}
+        assert called(RedisBloomfilter.Driver.RedixDriver.clear(key_name: "bloom-filter"))
+      end
+    end
+  end
 end
